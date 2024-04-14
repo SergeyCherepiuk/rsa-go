@@ -11,5 +11,4 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// blocks := splitter.Split(message, 10)
 }

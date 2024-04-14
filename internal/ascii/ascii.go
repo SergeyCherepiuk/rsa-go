@@ -3,28 +3,30 @@ package ascii
 import (
 	"fmt"
 	"strconv"
-	"strings"
+
+	"github.com/SergeyCherepiuk/rsa-go/internal/splitter"
+	"github.com/SergeyCherepiuk/rsa-go/internal/utils"
 )
 
-const Separator = " "
-
 func Encode(message []byte) []byte {
-	strCodes := make([]string, 0)
+	codes := make([]byte, 0)
 	for _, b := range message {
-		code := fmt.Sprintf("%d", uint8(b))
-		strCodes = append(strCodes, code)
+		code := fmt.Sprintf("%03d", uint8(b))
+		codes = append(codes, code...)
 	}
-	return []byte(strings.Join(strCodes, Separator))
+	return codes
 }
 
 func Decode(message []byte) []byte {
-	strCodes := strings.Split(string(message), Separator)
+	message = utils.LeftPad(message, '0', 3-len(message)%3)
 
-	var decoded string
-	for _, strCode := range strCodes {
-		code, _ := strconv.ParseUint(strCode, 10, 8)
-		decoded += string(byte(code))
+	codes := splitter.Split(message, 3)
+
+	decoded := make([]byte, len(codes))
+	for i, c := range codes {
+		code, _ := strconv.ParseUint(string(c), 10, 8)
+		decoded[i] = byte(code)
 	}
 
-	return []byte(decoded)
+	return decoded
 }
