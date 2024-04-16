@@ -16,7 +16,7 @@ func Split(bytes []byte, blockSize int) [][]byte {
 		}
 	}
 
-	if len(block) != 0 && len(block) != 10 {
+	if len(block) != 0 && len(block) != blockSize {
 		blocks = append(blocks, block)
 	}
 

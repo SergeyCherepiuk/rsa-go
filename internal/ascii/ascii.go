@@ -18,8 +18,12 @@ func Encode(message []byte) []byte {
 }
 
 func Decode(message []byte) []byte {
-	message = utils.LeftPad(message, '0', 3-len(message)%3)
+	count := 3 - len(message)%3
+	if count == 3 {
+		count = 0
+	}
 
+	message = utils.LeftPad(message, '0', count)
 	codes := splitter.Split(message, 3)
 
 	decoded := make([]byte, len(codes))
