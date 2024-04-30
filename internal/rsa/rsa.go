@@ -16,8 +16,8 @@ type PrivateKey struct {
 }
 
 var (
-	p, _ = rand.Prime(rand.Reader, 2048)
-	q, _ = rand.Prime(rand.Reader, 2048)
+	p, _ = rand.Prime(rand.Reader, 2112)
+	q, _ = rand.Prime(rand.Reader, 1984)
 )
 
 func GeneratePrivateKey() *PrivateKey {

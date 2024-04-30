@@ -17,7 +17,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	messageParts := splitter.Split(message, 5)
+	messageParts := splitter.Split(message, 10)
 
 	privateKey := rsa.GeneratePrivateKey()
 	publicKey := privateKey.PublicKey()
